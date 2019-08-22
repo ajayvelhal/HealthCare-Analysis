@@ -5,15 +5,16 @@
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "2315003838",
+    "hash" : "3003800760",
     "id" : "AE256774",
-    "lastKnownWriteTime" : 1565974665,
-    "last_content_update" : 1565974665047,
+    "lastKnownWriteTime" : 1566475991,
+    "last_content_update" : 1566475991498,
     "path" : "E:/MSC Project/Project/HealthCare/ui.R",
     "project_path" : "ui.R",
     "properties" : {
-        "cursorPosition" : "43,44",
-        "scrollLine" : "32"
+        "cursorPosition" : "1,14",
+        "docOutlineVisible" : "0",
+        "scrollLine" : "0"
     },
     "read_only" : false,
     "read_only_alternatives" : [

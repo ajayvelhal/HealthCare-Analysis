@@ -5,15 +5,15 @@
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "2648609229",
+    "hash" : "1230987997",
     "id" : "5DEDA346",
-    "lastKnownWriteTime" : 1565975414,
-    "last_content_update" : 1565975414496,
+    "lastKnownWriteTime" : 1566372408,
+    "last_content_update" : 1566372408925,
     "path" : "E:/MSC Project/Project/HealthCare/server.R",
     "project_path" : "server.R",
     "properties" : {
-        "cursorPosition" : "31,61",
-        "scrollLine" : "13"
+        "cursorPosition" : "91,35",
+        "scrollLine" : "0"
     },
     "read_only" : false,
     "read_only_alternatives" : [

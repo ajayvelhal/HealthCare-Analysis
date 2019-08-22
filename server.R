@@ -10,20 +10,50 @@ server <-shinyServer(function(input, output,session) {
     
     inFile <- input$file_da 
     
-    
     df <- read.csv(inFile$datapath, header = T, sep = ',')
     colnames(df) <- c("Diseases","Month","Year","Admitted_Male","Admitted_Female","Admitted_Male_Child","Admitted_Female_Child","Death_male","Death_Female","Death_Male_Child","Death_Female_Child")
+    
+    
+    output$da <- renderPlot({
+      text <- readLines(inFile$datapath)
+      docs<- Corpus(VectorSource(text))
+      inspect(docs)
+      
+      toSpace<- content_transformer(function(x,pattern)gsub(pattern,"",x))
+      docs<-tm_map(docs,toSpace,"/")
+      docs<-tm_map(docs,toSpace,"@")
+      docs<-tm_map(docs,content_transformer(tolower))
+      docs<-tm_map(docs,removeNumbers)
+      docs<-tm_map(docs,removeWords,stopwords("english"))
+      docs<-tm_map(docs,removeWords,c("blabla1","blabla2"))
+      docs<-tm_map(docs,removePunctuation)
+      docs<-tm_map(docs,stripWhitespace)
+      docs<-tm_map(docs,stemDocument)
+      
+      dtm<-TermDocumentMatrix(docs)
+      m<-as.matrix(dtm)
+      
+      v<-sort(rowSums(m),decreasing = TRUE)
+      d<-data.frame(word=names(v),freq=v)
+      head(d,2)
+      set.seed(1234)
+      
+      wordcloud(words=d$word,freq=d$freq,min.freq=1,max.words=100,
+                random.order=FALSE,rot.per=0.30,
+                colors=brewer.pal(8,"Dark2"))
+      
+    })
     
     updateSelectInput(session,inputId = 'month', label='Select Month', choices = df$Month, selected = df$Month)
     updateSelectInput(session,inputId = 'year1', label='Select Year', choices = df$Year, selected = df$Year)
     updateSelectInput(session,inputId = 'year2', label='Select Year', choices = df$Year, selected = df$Year)
     updateSelectInput(session,inputId = 'disease', label='Select Disease', choices = df$Diseases, selected = df$Diseases)
     return(df)
+    
+    
   })
   
-  output$da <- renderTable({
-    data()
-  })
+  
   observe({
     res<- data()%>%filter(data()$Month == input$month & data()$Year == input$year1) %>% select(Diseases,Admitted_Male)
     result<-data.frame(list(c(res)))

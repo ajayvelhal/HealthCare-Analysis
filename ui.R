@@ -1,12 +1,17 @@
 library(shiny)
 library(dplyr)
-library(reshape2)
+#library(reshape2)
 library(tidyverse)
-library(shinythemes)
+#library(shinythemes)
 library(tidyr)
 # Define UI for application that draws a histogram
 library(shinydashboard)
 library(ggplot2)
+library(tm)
+library(SnowballC)
+library(RColorBrewer)
+library(wordcloud)
+
 # Define UI for application that draws a histogram
 ui <-dashboardPage(skin = "black",
                     dashboardHeader(title = span(tagList(icon("file-medical-alt"),"HealthCare Analysis"))),
@@ -27,9 +32,8 @@ ui <-dashboardPage(skin = "black",
                           
                             fileInput("file_da","Upload A CSV File",accept = c("text/csv","text/comma-separated-values","text/plain",".csv")),
                             
-                            fluidRow(tableOutput('da'))
-                            #selectInput('')
-                            
+                            plotOutput('da',height = "600px")
+                          
                           
                         ),
                         tabItem(
@@ -56,7 +60,13 @@ ui <-dashboardPage(skin = "black",
                             tabPanel("Female Child",fluidRow(column(width=12,plotOutput("view_female_child"))))
                           ),
                           plotOutput("plot2")
-                        )
+                        ),
+                        tabItem(
+                          tabName = "widgets2",
+                          selectInput('month',"Select Month",""),
+                          #selectInput('year1',"Select Year",""),
+                          plotOutput("plot3")
+                        ),
                         )
                       )
                       
